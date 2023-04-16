@@ -74,6 +74,7 @@ module Rom
       end
 
       def update(keys, hash)
+        hash = stringify_keys(hash)
         connection.update_item({
           table_name: name, key: hash_to_key(stringify_keys(keys)),
           attribute_updates: hash.each_with_object({}) do |(k, v), out|
