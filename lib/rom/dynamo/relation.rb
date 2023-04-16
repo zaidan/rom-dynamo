@@ -6,6 +6,8 @@ module Rom
       forward :limit, :reversed, :offset
       adapter :dynamo
 
+      schema_class Rom::Dynamo::Schema
+
       def each_page(&block)
         return enum_for(:each_page) if block.nil?
         dataset.each_page do |page|
