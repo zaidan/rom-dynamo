@@ -63,6 +63,7 @@ module Rom
       ############# WRITE #############
       def insert(hash)
         opts = { table_name: name, item: stringify_keys(hash) }
+        puts "Inserting DDB: #{opts.inspect}"
         connection.put_item(opts).attributes
       end
 
