@@ -68,11 +68,13 @@ module Rom
 
       def delete(hash)
         hash = stringify_keys(hash)
-        connection.delete_item({
+        opts = {
           table_name: name,
           key: hash_to_key(hash),
           expected: to_expected(hash),
-        }).attributes
+        }
+        puts "Deleting DDB: #{opts.inspect}"
+        connection.delete_item(opts).attributes
       end
 
       def update(keys, hash)
