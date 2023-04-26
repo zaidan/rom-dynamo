@@ -77,12 +77,14 @@ module Rom
 
       def update(keys, hash)
         hash = stringify_keys(hash)
-        connection.update_item({
+        opts =  {
           table_name: name, key: hash_to_key(stringify_keys(keys)),
           attribute_updates: hash.each_with_object({}) do |(k, v), out|
             out[k] = { value: dump_value(v), action: 'PUT' } if !keys[k]
           end
-        }).attributes
+        }
+        puts "Updating DDB: #{opts.inspect}"
+        connection.update_item(opts).attributes
       end
 
       ############# HELPERS #############
