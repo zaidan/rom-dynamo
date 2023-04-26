@@ -16,7 +16,9 @@ module Rom
 
       def each(&block)
         return enum_for(:each) if block.nil?
-        each_page { |p| p.items.each(&block) }
+        each_page do |p|
+          p.items.map {|item| item.transform_keys(&:to_sym) }.each(&block)
+        end
       end
 
       def each_page(&block)
