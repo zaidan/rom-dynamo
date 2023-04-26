@@ -34,6 +34,11 @@ module Rom
         dup_with_query(self.class, query)
       end
 
+      def query(query, key_hash = nil)
+        return self if query.nil?
+        dup_with_query(self.class, key_hash, query)
+      end
+
       def batch_restrict(keys)
         dup_as(BatchGetDataset, keys: keys.map do |k|
           Hash[table_keys.zip(k.is_a?(Array) ? k : [k])]
@@ -42,6 +47,10 @@ module Rom
 
       def index_restrict(index, query)
         dup_with_query(GlobalIndexDataset, query, index_name: index.to_s)
+      end
+
+      def index_query(index, query, key_hash = nil)
+        dup_with_query(GlobalIndexDataset, key_hash, query.merge(index_name: index.to_s))
       end
 
       ############# PAGINATE #############

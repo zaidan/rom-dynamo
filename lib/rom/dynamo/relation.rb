@@ -4,6 +4,7 @@ module Rom
       include Enumerable
       forward :restrict, :batch_restrict, :index_restrict
       forward :limit, :reversed, :offset
+      forward :query, :index_query
       adapter :dynamo
 
       schema_class Rom::Dynamo::Schema
